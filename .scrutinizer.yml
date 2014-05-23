@@ -1,4 +1,4 @@
+inherit: true
+
 filter:
     paths: [src/*]
-
-tools:
