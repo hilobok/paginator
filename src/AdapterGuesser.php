@@ -2,8 +2,6 @@
 
 namespace Anh\Paginator;
 
-use Anh\Paginator\Adapter\DoctrineOrmAdapter;
-
 class AdapterGuesser
 {
     const ADAPTER_INTERFACE = 'Anh\Paginator\AdapterInterface';
