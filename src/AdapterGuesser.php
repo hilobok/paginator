@@ -23,7 +23,7 @@ class AdapterGuesser
     {
         $adapter = $this->getAdapterClass($adapter);
 
-        if (!is_a($adapter, self::ADAPTER_INTERFACE, true)) {
+        if (!is_subclass_of($adapter, self::ADAPTER_INTERFACE)) {
             throw new \InvalidArgumentException(
                 sprintf("Adapter '%s' should implement '%s' interface", $adapter, self::ADAPTER_INTERFACE)
             );
