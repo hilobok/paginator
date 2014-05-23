@@ -1,0 +1,41 @@
+{
+    "name": "anh/paginator",
+    "type": "library",
+    "description": "Paginator library",
+    "keywords": [
+        "pager", "paginator", "pagination", "paging"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrew Hilobok",
+            "email": "hilobok@gmail.com"
+        }
+    ],
+
+    "require": {
+        "php": ">=5.3.9"
+    },
+
+    "require-dev": {
+        "phpspec/phpspec": "2.1.x-dev",
+        "doctrine/orm": "~2.3"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Anh\\Paginator\\": "src"
+        }
+    },
+
+    "config": {
+        "bin-dir": "bin"
+    },
+
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
+
