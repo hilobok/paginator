@@ -1,3 +1,2 @@
 filter:
-    paths: [ src/* ]
-    excluded_paths: [ spec/*, bin/*, vendor/* ]
+    paths: [src/*]
