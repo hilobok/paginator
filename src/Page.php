@@ -2,57 +2,63 @@
 
 namespace Anh\Paginator;
 
-class Page implements PageInterface
+class Page implements PageInterface, \IteratorAggregate, \Countable
 {
     /**
+     * Dataset adapter.
      * @var AdapterInterface
      */
     protected $adapter;
 
     /**
-     * Current page
+     * Page number.
      * @var integer
      */
-    protected $page;
+    protected $pageNumber;
 
     /**
-     * Rows per page
+     * Number of elements per page.
      * @var integer
      */
     protected $limit;
 
     /**
-     * Paginated data
-     * @var array|Iterator
+     * Iterator for paginated data.
+     * @var Iterator
      */
-    private $data;
+    private $iterator;
 
     /**
      * Constructor
-     * @param AdapterInterface $adapter
-     * @param integer          $page    Page number to retrieve, numeration starting from 1
-     * @param integer          $limit   Number of elements per page
+     * @param AdapterInterface $adapter Dataset adapter.
+     * @param integer          $pageNumber Page number to retrieve, numeration starting from 1.
+     * @param integer          $limit      Number of elements per page.
      */
-    public function __construct(AdapterInterface $adapter, $page, $limit)
+    public function __construct(AdapterInterface $adapter, $pageNumber, $limit)
     {
         $this->adapter = $adapter;
-        $this->page = $page;
+        $this->pageNumber = $pageNumber ?: 1;
         $this->limit = $limit;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function get()
+    public function getIterator()
     {
-        if ($this->data === null) {
-            $this->data = $this->adapter->getResult(
-                $this->getOffset(),
-                $this->getLimit()
-            );
-        }
+        return $this->iterator ?: $this->iterator = $this->adapter->createIterator(
+            $this->getOffset(),
+            $this->limit
+        );
+    }
 
-        return $this->data;
+    /**
+     * Returns number of elements in iterator.
+     * @return integer
+     */
+    public function count()
+    {
+        return count($this->getIterator());
     }
 
     /**
@@ -60,7 +66,7 @@ class Page implements PageInterface
      */
     public function getOffset()
     {
-        return ($this->getPage() - 1) * $this->getLimit();
+        return ($this->pageNumber - 1) * $this->limit;
     }
 
     /**
@@ -74,17 +80,17 @@ class Page implements PageInterface
     /**
      * {@inheritdoc}
      */
-    public function getPage()
+    public function getPageNumber()
     {
-        return $this->page;
+        return $this->pageNumber;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getCount()
+    public function getTotalCount()
     {
-        return $this->adapter->getCount();
+        return $this->adapter->getTotalCount();
     }
 
     /**
@@ -92,7 +98,7 @@ class Page implements PageInterface
      */
     public function getPagesCount()
     {
-        return (integer) ceil($this->getCount() / $this->getLimit());
+        return (integer) ceil($this->getTotalCount() / $this->limit);
     }
 
     /**
@@ -100,6 +106,6 @@ class Page implements PageInterface
      */
     public function isEmpty()
     {
-        return $this->getCount() === 0;
+        return $this->getTotalCount() === 0;
     }
 }

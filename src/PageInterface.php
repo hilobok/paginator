@@ -5,43 +5,43 @@ namespace Anh\Paginator;
 interface PageInterface
 {
     /**
-     * Get paginated elements
-     * @return array|Iterator
+     * Returns iterator for paginated elements. It should implement Iterator and Countable interfaces.
+     * @return Iterator
      */
-    public function get();
+    public function getIterator();
 
     /**
-     * Get offset
+     * Returns offset in dataset for given page number.
      * @return integer
      */
     public function getOffset();
 
     /**
-     * Get number of elements per page
+     * Returns number of elements per page.
      * @return integer
      */
     public function getLimit();
 
     /**
-     * Get page number
+     * Returns page number.
      * @return integer
      */
-    public function getPage();
+    public function getPageNumber();
 
     /**
-     * Get total number of elements
+     * Returns total number of elements in dataset.
      * @return integer
      */
-    public function getCount();
+    public function getTotalCount();
 
     /**
-     * Get total pages count
+     * Returns total pages count.
      * @return integer
      */
     public function getPagesCount();
 
     /**
-     * Indicates whether page has any elements
+     * Returns whether page is empty.
      * @return boolean
      */
     public function isEmpty();

@@ -2,22 +2,23 @@
 
 namespace Anh\Paginator;
 
-class AdapterGuesser
+class AdapterResolver
 {
     const ADAPTER_INTERFACE = 'Anh\Paginator\AdapterInterface';
 
     /**
-     * List of classes of all available adapters
+     * List of classes of all available adapters.
      * @var array
      */
     protected $adapters = array(
+        'Anh\Paginator\Adapter\EmptyDataAdapter',
         'Anh\Paginator\Adapter\ArrayAdapter',
         'Anh\Paginator\Adapter\DoctrineOrmAdapter'
     );
 
     /**
-     * Add adapter, it should implement AdapterInterface
-     * @param AdapterInterface|string $adapter Adapter to add
+     * Add adapter (object or class), it should implement AdapterInterface.
+     * @param AdapterInterface|string $adapter Adapter to add.
      */
     public function addAdapter($adapter)
     {
@@ -35,7 +36,7 @@ class AdapterGuesser
     }
 
     /**
-     * Remove adapter
+     * Removes given adapter (object or class).
      * @param AdapterInterface|string $adapter Adapter to remove
      */
     public function removeAdapter($adapter)
@@ -48,9 +49,9 @@ class AdapterGuesser
     }
 
     /**
-     * Replace adapter
-     * @param AdapterInterface|string $old Old adapter
-     * @param AdapterInterface|string $new New adapter
+     * Replaces adapter with new one (object or class).
+     * @param AdapterInterface|string $old Old adapter.
+     * @param AdapterInterface|string $new New adapter.
      */
     public function replaceAdapter($old, $new)
     {
@@ -59,7 +60,7 @@ class AdapterGuesser
     }
 
     /**
-     * Get adapters
+     * Returns list of classes of available adapters.
      * @return array Array of classes of all available adapters
      */
     public function getAdapters()
@@ -68,11 +69,11 @@ class AdapterGuesser
     }
 
     /**
-     * Guess adapter for given data
-     * @param  mixed                 $data
+     * Resolves adapter for given dataset. Returns null if no adapter found.
+     * @param  mixed                 $data Dataset for pagination.
      * @return AdapterInterface|null
      */
-    public function guess($data)
+    public function resolve($data, array $options = array())
     {
         if ($data instanceof AdapterInterface) {
             return $data;
@@ -80,13 +81,18 @@ class AdapterGuesser
 
         foreach ($this->adapters as $adapter) {
             if ($this->isAdapterCompatible($adapter, $data)) {
-                return new $adapter($data);
+                return new $adapter($data, $options);
             }
         }
 
         return null;
     }
 
+    /**
+     * Returns class of given adapter.
+     * @param  mixed $adapter
+     * @return string
+     */
     protected function getAdapterClass($adapter)
     {
         if (is_object($adapter)) {
@@ -96,6 +102,12 @@ class AdapterGuesser
         return $adapter;
     }
 
+    /**
+     * Returns whether adapter supports given dataset.
+     * @param  string  $adapter Adapter class.
+     * @param  mixed  $data    Data for pagination.
+     * @return boolean
+     */
     protected function isAdapterCompatible($adapter, $data)
     {
         return call_user_func_array(

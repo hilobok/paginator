@@ -5,22 +5,22 @@ namespace Anh\Paginator;
 interface AdapterInterface
 {
     /**
-     * Get paginated data
-     * @param  integer        $offset
-     * @param  integer        $limit
+     * Creates iterator for paginated data.
+     * @param  integer        $offset Offset in dataset.
+     * @param  integer        $limit Number of elements per page.
      * @return array|Iterator
      */
-    public function getResult($offset, $limit);
+    public function createIterator($offset, $limit);
 
     /**
-     * Get total count of elements in data
+     * Returns total number of elements in dataset.
      * @return integer
      */
-    public function getCount();
+    public function getTotalCount();
 
     /**
-     * Indicates whether adapter supports given $data
-     * @param  mixed   $data
+     * Returns whether adapter supports given dataset.
+     * @param  mixed   $data Data for pagination.
      * @return boolean
      */
     public static function isCompatibleWith($data);

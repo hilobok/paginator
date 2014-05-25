@@ -10,29 +10,31 @@ use Anh\Paginator\AdapterInterface;
 class DoctrineOrmAdapter implements AdapterInterface
 {
     /**
-     * Doctrine paginator
+     * Doctrine paginator.
      * @var Paginator
      */
     protected $paginator;
 
-    public function __construct($query, $fetchJoinCollection = true, $useOutputWalkers = false)
+    /**
+     * Constructor
+     * @param mixed $query   QueryBuilder or Query instance.
+     * @param array  $options Adapter options.
+     */
+    public function __construct($query, array $options = array())
     {
-        $this->paginator = new Paginator($query, $fetchJoinCollection);
-        $this->paginator->setUseOutputWalkers($useOutputWalkers);
+        $options += array(
+            'fetchJoinCollection' => true,
+            'useOutputWalkers' => false
+        );
+
+        $this->paginator = new Paginator($query, $options['fetchJoinCollection']);
+        $this->paginator->setUseOutputWalkers($options['useOutputWalkers']);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getCount()
-    {
-        return $this->paginator->count();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getResult($offset, $limit)
+    public function createIterator($offset, $limit)
     {
         $this->paginator->getQuery()
             ->setFirstResult($offset)
@@ -40,6 +42,14 @@ class DoctrineOrmAdapter implements AdapterInterface
         ;
 
         return $this->paginator->getIterator();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTotalCount()
+    {
+        return count($this->paginator);
     }
 
     /**

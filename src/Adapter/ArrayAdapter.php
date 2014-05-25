@@ -7,33 +7,50 @@ use Anh\Paginator\AdapterInterface;
 class ArrayAdapter implements AdapterInterface
 {
     /**
+     * Data for pagination.
      * @var array
      */
     protected $data;
 
     /**
-     * @var boolean
+     * Adapter options.
+     * @var array
      */
-    protected $preserveKeys;
+    private $options;
 
-    public function __construct(array $data, $preserveKeys = false)
+    /**
+     * Constructor
+     * @param array $data    Data for pagination.
+     * @param array $options Adapter options.
+     */
+    public function __construct(array $data, array $options = array())
     {
+        $this->options = $options + array(
+            'preserveKeys' => false
+        );
+
         $this->data = $data;
-        $this->preserveKeys = $preserveKeys;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getResult($offset, $limit)
+    public function createIterator($offset, $limit)
     {
-        return array_slice($this->data, $offset, $limit, $this->preserveKeys);
+        return new \ArrayIterator(
+            array_slice(
+                $this->data,
+                $offset,
+                $limit,
+                $this->options['preserveKeys']
+            )
+        );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getCount()
+    public function getTotalCount()
     {
         return count($this->data);
     }

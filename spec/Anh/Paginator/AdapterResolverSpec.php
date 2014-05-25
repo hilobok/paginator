@@ -4,27 +4,28 @@ namespace spec\Anh\Paginator;
 
 use PhpSpec\ObjectBehavior;
 use Anh\Paginator\AdapterInterface;
+use Anh\Paginator\Adapter\EmptyDataAdapter;
 
-class AdapterGuesserSpec extends ObjectBehavior
+class AdapterResolverSpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Anh\Paginator\AdapterGuesser');
+        $this->shouldHaveType('Anh\Paginator\AdapterResolver');
     }
 
     public function it_should_leave_adapter_untouched(AdapterInterface $adapter)
     {
-        $this->guess($adapter)->shouldReturn($adapter);
+        $this->resolve($adapter)->shouldReturn($adapter);
     }
 
     public function it_should_return_adapter_for_known_data()
     {
-        $this->guess(array())->shouldHaveType('Anh\Paginator\AdapterInterface');
+        $this->resolve(array())->shouldImplement('Anh\Paginator\AdapterInterface');
     }
 
     public function it_should_return_null_for_unknown_data()
     {
-        $this->guess('there is no adapter for string')->shouldReturn(null);
+        $this->resolve('there is no adapter for string')->shouldReturn(null);
     }
 
     public function it_should_add_adapter_object(AdapterInterface $adapter)
@@ -51,15 +52,16 @@ class AdapterGuesserSpec extends ObjectBehavior
 
     public function it_should_throw_exception_when_adding_adapter_which_not_implements_AdapterInterface()
     {
-        $this->shouldThrow('InvalidArgumentException')->during('addAdapter', array(new \StdClass));
+        $this->shouldThrow('InvalidArgumentException')
+            ->during('addAdapter', array(new \StdClass))
+        ;
     }
 
-    public function it_should_remove_adapter_object(AdapterInterface $adapter)
+    public function it_should_remove_adapter_object()
     {
-        $adapters = $this->getWrappedObject()->getAdapters();
-        $this->addAdapter($adapter);
-        $this->removeAdapter($adapter);
-        $this->getAdapters()->shouldReturn($adapters);
+        $count = count($this->getWrappedObject()->getAdapters());
+        $this->removeAdapter(new EmptyDataAdapter());
+        $this->getAdapters()->shouldHaveCount($count - 1);
     }
 
     public function it_should_remove_adapter_class()

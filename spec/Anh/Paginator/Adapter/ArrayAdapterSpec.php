@@ -3,6 +3,7 @@
 namespace spec\Anh\Paginator\Adapter;
 
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 class ArrayAdapterSpec extends ObjectBehavior
 {
@@ -23,7 +24,7 @@ class ArrayAdapterSpec extends ObjectBehavior
 
     public function it_should_be_compatible_with_array()
     {
-        $this->shouldBeCompatibleWith(array());
+        $this->shouldBeCompatibleWith(array(1, 2, 3));
     }
 
     public function it_should_not_be_compatible_with_other_types()
@@ -31,13 +32,20 @@ class ArrayAdapterSpec extends ObjectBehavior
         $this->shouldNotBeCompatibleWith('not compatible data');
     }
 
-    public function it_should_get_result()
+    public function it_should_create_iterator()
     {
-        $this->getResult(3, 3)->shouldReturn(array(4, 5, 6));
+        $this->createIterator(0, 4)->shouldImplement('Iterator');
     }
 
-    public function it_should_get_count()
+    public function it_should_return_paginated_data()
     {
-        $this->getCount()->shouldReturn(10);
+        $this->createIterator(0, 4)->shouldBeLike(
+            new \ArrayIterator(array(1, 2, 3, 4))
+        );
+    }
+
+    public function it_should_return_total_count()
+    {
+        $this->getTotalCount()->shouldReturn(10);
     }
 }

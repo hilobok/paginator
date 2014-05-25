@@ -7,29 +7,29 @@ class PageFactory
     const DEFAULT_PAGE_CLASS = 'Anh\Paginator\Page';
 
     /**
-     * Page class
+     * Page class.
      * @var string
      */
-    protected $class;
+    protected $pageClass;
 
     /**
      * Constructor
-     * @param string $class Page class
+     * @param string $pageClass Page class.
      */
-    public function __construct($class = self::DEFAULT_PAGE_CLASS)
+    public function __construct($pageClass = self::DEFAULT_PAGE_CLASS)
     {
-        $this->class = $class;
+        $this->pageClass = $pageClass;
     }
 
     /**
-     * Creates page
-     * @param  AdapterInterface $adapter
-     * @param  integer          $page    Page number to retrieve, numeration starting from 1
-     * @param  integer          $limit   Number of elements per page
+     * Creates page.
+     * @param  AdapterInterface $adapter Dataset adapter.
+     * @param  integer          $page    Page number to retrieve, numeration starts from 1.
+     * @param  integer          $limit   Number of elements per page.
      * @return PageInterface
      */
     public function create(AdapterInterface $adapter, $page, $limit)
     {
-        return new $this->class($adapter, $page, $limit);
+        return new $this->pageClass($adapter, $page, $limit);
     }
 }
