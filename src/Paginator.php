@@ -17,7 +17,7 @@ class Paginator
     /**
      * Constructor
      * @param AdapterResolver $adapterResolver
-     * @param PageFactory    $pageFactory
+     * @param PageFactory     $pageFactory
      */
     public function __construct($adapterResolver = null, $pageFactory = null)
     {
@@ -27,10 +27,10 @@ class Paginator
 
     /**
      * Paginate given data.
-     * @param  mixed         $data    Data for pagination.
-     * @param  integer       $pageNumber    Page number, numeration starts from 1.
-     * @param  integer       $limit   Number of elements per page.
-     * @param  array         $options Adapter options.
+     * @param  mixed         $data       Data for pagination.
+     * @param  integer       $pageNumber Page number, numeration starts from 1.
+     * @param  integer       $limit      Number of elements per page.
+     * @param  array         $options    Adapter options.
      * @return PageInterface
      */
     public function paginate($data, $pageNumber, $limit, array $options = array())

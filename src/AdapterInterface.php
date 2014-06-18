@@ -7,7 +7,7 @@ interface AdapterInterface
     /**
      * Creates iterator for paginated data.
      * @param  integer        $offset Offset in dataset.
-     * @param  integer        $limit Number of elements per page.
+     * @param  integer        $limit  Number of elements per page.
      * @return \ArrayIterator
      */
     public function createIterator($offset, $limit);

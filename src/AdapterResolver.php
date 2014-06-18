@@ -90,7 +90,7 @@ class AdapterResolver
 
     /**
      * Returns class of given adapter.
-     * @param  mixed $adapter
+     * @param  mixed  $adapter
      * @return string
      */
     protected function getAdapterClass($adapter)
@@ -105,7 +105,7 @@ class AdapterResolver
     /**
      * Returns whether adapter supports given dataset.
      * @param  string  $adapter Adapter class.
-     * @param  mixed  $data    Data for pagination.
+     * @param  mixed   $data    Data for pagination.
      * @return boolean
      */
     protected function isAdapterCompatible($adapter, $data)

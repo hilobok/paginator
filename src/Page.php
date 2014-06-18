@@ -54,7 +54,7 @@ class Page implements PageInterface, \IteratorAggregate, \Countable
 
     /**
      * Constructor
-     * @param AdapterInterface $adapter Dataset adapter.
+     * @param AdapterInterface $adapter    Dataset adapter.
      * @param integer          $pageNumber Page number to retrieve, numeration starting from 1.
      * @param integer          $limit      Number of elements per page.
      */

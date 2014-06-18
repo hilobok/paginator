@@ -3,7 +3,6 @@
 namespace spec\Anh\Paginator\Adapter;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class ArrayAdapterSpec extends ObjectBehavior
 {

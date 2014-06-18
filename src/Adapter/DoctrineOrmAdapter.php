@@ -18,7 +18,7 @@ class DoctrineOrmAdapter implements AdapterInterface
     /**
      * Constructor
      * @param mixed $query   QueryBuilder or Query instance.
-     * @param array  $options Adapter options.
+     * @param array $options Adapter options.
      */
     public function __construct($query, array $options = array())
     {
