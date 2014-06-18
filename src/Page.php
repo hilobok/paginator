@@ -26,7 +26,31 @@ class Page implements PageInterface, \IteratorAggregate, \Countable
      * Iterator for paginated data.
      * @var Iterator
      */
-    private $iterator;
+    protected $iterator;
+
+    /**
+     * Total number of elements in dataset.
+     * @var integer
+     */
+    protected $totalCount;
+
+    /**
+     * Offset in dataset for given page number.
+     * @var integer
+     */
+    protected $offset;
+
+    /**
+     * Total number of pages.
+     * @var integer
+     */
+    protected $pagesCount;
+
+    /**
+     * Number of elements in paginated data.
+     * @var integer
+     */
+    protected $count;
 
     /**
      * Constructor
@@ -58,7 +82,9 @@ class Page implements PageInterface, \IteratorAggregate, \Countable
      */
     public function count()
     {
-        return count($this->getIterator());
+        return isset($this->count) ? $this->count
+            : $this->count = count($this->getIterator())
+        ;
     }
 
     /**
@@ -66,7 +92,9 @@ class Page implements PageInterface, \IteratorAggregate, \Countable
      */
     public function getOffset()
     {
-        return ($this->pageNumber - 1) * $this->limit;
+        return isset($this->offset) ? $this->offset
+            : $this->offset = ($this->pageNumber - 1) * $this->limit
+        ;
     }
 
     /**
@@ -90,7 +118,9 @@ class Page implements PageInterface, \IteratorAggregate, \Countable
      */
     public function getTotalCount()
     {
-        return $this->adapter->getTotalCount();
+        return isset($this->totalCount) ? $this->totalCount
+            : $this->totalCount = $this->adapter->getTotalCount()
+        ;
     }
 
     /**
@@ -98,7 +128,9 @@ class Page implements PageInterface, \IteratorAggregate, \Countable
      */
     public function getPagesCount()
     {
-        return (integer) ceil($this->getTotalCount() / $this->limit);
+        return isset($this->pagesCount) ? $this->pagesCount
+            : $this->pagesCount = (integer) ceil($this->getTotalCount() / $this->limit)
+        ;
     }
 
     /**
