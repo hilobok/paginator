@@ -2,14 +2,11 @@
 
 namespace Anh\Paginator;
 
+/**
+ * Page instances besides this interface should implement also \IteratorAggregate and \Countable.
+ */
 interface PageInterface
 {
-    /**
-     * Returns iterator for paginated elements. It should implement Iterator and Countable interfaces.
-     * @return Iterator
-     */
-    public function getIterator();
-
     /**
      * Returns offset in dataset for given page number.
      * @return integer
