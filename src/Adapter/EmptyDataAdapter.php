@@ -27,6 +27,6 @@ class EmptyDataAdapter implements AdapterInterface
      */
     public static function isCompatibleWith($data)
     {
-        return empty($data) || ($data instanceof \Countable && count($data) == 0);
+        return empty($data) || ($data instanceof \Countable && count($data) === 0);
     }
 }
