@@ -24,7 +24,7 @@ class Page implements PageInterface, \IteratorAggregate, \Countable
 
     /**
      * Iterator for paginated data.
-     * @var Iterator
+     * @var \ArrayIterator
      */
     protected $iterator;
 
