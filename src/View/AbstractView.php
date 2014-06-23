@@ -10,6 +10,10 @@ abstract class AbstractView implements ViewInterface
 {
     protected $urlGenerator;
 
+    protected $templates;
+
+    protected $options;
+
     public function __construct($urlGenerator = null)
     {
         $this->urlGenerator = $urlGenerator ?: new UrlGenerator();
