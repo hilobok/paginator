@@ -34,7 +34,7 @@ class AdaptiveView extends SimpleView
 
         $currentPage = $page->getPageNumber();
 
-        $delimiter = $this->process(
+        $delimiter = $this->renderTemplate(
             $this->templates['delimiter'],
             array(
                 '%delimiter%' => $options['delimiter'],
@@ -75,7 +75,7 @@ class AdaptiveView extends SimpleView
             $paginator = $this->renderNavigation($paginator, $currentPage, $pagesCount, $url, $options);
         }
 
-        $paginator = $this->process(
+        $paginator = $this->renderTemplate(
             $this->templates['paginator'],
             array(
                 '%paginator%' => $paginator,

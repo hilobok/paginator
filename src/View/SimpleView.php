@@ -39,7 +39,7 @@ class SimpleView extends AbstractView
             $paginator = $this->renderNavigation($paginator, $currentPage, $pagesCount, $url, $options);
         }
 
-        $paginator = $this->process(
+        $paginator = $this->renderTemplate(
             $this->templates['paginator'],
             array(
                 '%paginator%' => $paginator,
@@ -53,14 +53,14 @@ class SimpleView extends AbstractView
         return $paginator;
     }
 
-    protected function process($template, $values)
+    protected function renderTemplate($template, $values)
     {
         return str_replace(array_keys($values), array_values($values), $template);
     }
 
     protected function renderPage($pageNumber, $currentPage, $url)
     {
-        return $this->process(
+        return $this->renderTemplate(
             $pageNumber == $currentPage ? $this->templates['current_page'] : $this->templates['page'],
             array(
                 '%page%' => $pageNumber,
@@ -82,7 +82,7 @@ class SimpleView extends AbstractView
 
     protected function renderCentered($paginator)
     {
-        return $this->process(
+        return $this->renderTemplate(
             $this->templates['centered'],
             array(
                 '%paginator%' => $paginator,
@@ -92,7 +92,7 @@ class SimpleView extends AbstractView
 
     protected function renderNavigation($paginator, $currentPage, $pagesCount, $url, $options)
     {
-        return $this->process(
+        return $this->renderTemplate(
             $this->templates['navigation'],
             array(
                 '%paginator%' => $paginator,
@@ -104,7 +104,7 @@ class SimpleView extends AbstractView
 
     protected function renderPrev($currentPage, $url, array $options)
     {
-        return $this->process(
+        return $this->renderTemplate(
             $currentPage <= 1 ? $this->templates['arrow_unavailable'] : $this->templates['arrow'],
             array(
                 '%arrow%' => $options['arrow_prev'],
@@ -115,7 +115,7 @@ class SimpleView extends AbstractView
 
     protected function renderNext($currentPage, $pagesCount, $url, array $options)
     {
-        return $this->process(
+        return $this->renderTemplate(
             $currentPage >= $pagesCount ? $this->templates['arrow_unavailable'] : $this->templates['arrow'],
             array(
                 '%arrow%' => $options['arrow_next'],
