@@ -4,7 +4,7 @@
 
 ## Installation
 ```bash
-$ php composer.phar require 'anh/paginator:0.1.0'
+$ php composer.phar require 'anh/paginator:0.2.*'
 ```
 
 ## Usage
