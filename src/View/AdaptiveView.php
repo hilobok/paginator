@@ -83,12 +83,7 @@ class AdaptiveView extends SimpleView
         );
 
         if ($options['centered']) {
-            $paginator = $this->process(
-                $this->templates['centered'],
-                array(
-                    '%paginator%' => $paginator,
-                )
-            );
+            $paginator = $this->renderCentered($paginator);
         }
 
         return $paginator;

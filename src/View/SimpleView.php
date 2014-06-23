@@ -47,12 +47,7 @@ class SimpleView extends AbstractView
         );
 
         if ($options['centered']) {
-            $paginator = $this->process(
-                $this->templates['centered'],
-                array(
-                    '%paginator%' => $paginator,
-                )
-            );
+            $paginator = $this->renderCentered($paginator);
         }
 
         return $paginator;
@@ -83,6 +78,16 @@ class SimpleView extends AbstractView
         }
 
         return $html;
+    }
+
+    protected function renderCentered($paginator)
+    {
+        return $this->process(
+            $this->templates['centered'],
+            array(
+                '%paginator%' => $paginator,
+            )
+        );
     }
 
     protected function renderNavigation($paginator, $currentPage, $pagesCount, $url, $options)
