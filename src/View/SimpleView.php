@@ -36,14 +36,7 @@ class SimpleView extends AbstractView
         );
 
         if ($options['navigation']) {
-            $paginator = $this->process(
-                $this->templates['navigation'],
-                array(
-                    '%paginator%' => $paginator,
-                    '%prev%' => $this->renderPrev($currentPage, $url, $options),
-                    '%next%' => $this->renderNext($currentPage, $pagesCount, $url, $options),
-                )
-            );
+            $paginator = $this->renderNavigation($paginator, $currentPage, $pagesCount, $url, $options);
         }
 
         $paginator = $this->process(
@@ -90,6 +83,18 @@ class SimpleView extends AbstractView
         }
 
         return $html;
+    }
+
+    protected function renderNavigation($paginator, $currentPage, $pagesCount, $url, $options)
+    {
+        return $this->process(
+            $this->templates['navigation'],
+            array(
+                '%paginator%' => $paginator,
+                '%prev%' => $this->renderPrev($currentPage, $url, $options),
+                '%next%' => $this->renderNext($currentPage, $pagesCount, $url, $options),
+            )
+        );
     }
 
     protected function renderPrev($currentPage, $url, array $options)

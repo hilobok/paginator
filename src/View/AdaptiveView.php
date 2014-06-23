@@ -72,14 +72,7 @@ class AdaptiveView extends SimpleView
         $paginator = $this->renderSequence($sequence);
 
         if ($options['navigation']) {
-            $paginator = $this->process(
-                $this->templates['navigation'],
-                array(
-                    '%paginator%' => $paginator,
-                    '%prev%' => $this->renderPrev($currentPage, $url, $options),
-                    '%next%' => $this->renderNext($currentPage, $pagesCount, $url, $options),
-                )
-            );
+            $paginator = $this->renderNavigation($paginator, $currentPage, $pagesCount, $url, $options);
         }
 
         $paginator = $this->process(
