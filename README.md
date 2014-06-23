@@ -60,6 +60,26 @@ foreach ($elements as $element) {
 }
 ```
 
+## Rendering
+
+```php
+<?php
+
+use Anh\Paginator\Paginator;
+use Anh\Paginator\View\AdaptiveView;
+
+$paginator = new Paginator();
+$posts = $paginator->paginate(/* ... */);
+
+$view = new AdaptiveView();
+$view->setTemplates(array(/* templates */));
+$view->setOptions(array(/* options */));
+
+echo $view->render($posts, '/some/url/page-%page%', array(/* options */));
+```
+For complete list of templates and options see sources.
+Also you can use `resource/pagination.css` for paginator styling. It is based on pagination from [foundation zurb](http://foundation.zurb.com/docs/components/pagination.html).
+
 ## Available adapters
 - EmptyDataAdapter
 - ArrayAdapter
