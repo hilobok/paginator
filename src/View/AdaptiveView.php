@@ -25,8 +25,13 @@ class AdaptiveView extends SimpleView
      */
     public function render(PageInterface $page, $url, array $options = array())
     {
-        $options += $this->options;
         $pagesCount = $page->getPagesCount();
+
+        if ($pagesCount < 2) {
+            return '';
+        }
+
+        $options += $this->options;
 
         if ($pagesCount <= $options['length'] * 3 + 1) {
             return parent::render($page, $url, $options);

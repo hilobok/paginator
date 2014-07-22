@@ -25,9 +25,14 @@ class SimpleView extends AbstractView
 
     public function render(PageInterface $page, $url, array $options = array())
     {
+        $pagesCount = $page->getPagesCount();
+
+        if ($pagesCount < 2) {
+            return '';
+        }
+
         $options += $this->options;
         $currentPage = $page->getPageNumber();
-        $pagesCount = $page->getPagesCount();
 
         $paginator = $this->renderPages(
             array(1, $pagesCount),
