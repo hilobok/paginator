@@ -3,17 +3,16 @@
 namespace spec\Anh\Paginator\View;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Anh\Paginator\PageInterface;
 
 class HiddenViewSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Anh\Paginator\View\HiddenView');
     }
 
-    function it_should_render(PageInterface $page)
+    public function it_should_render(PageInterface $page)
     {
         $page->getPageNumber()->willReturn(1);
         $page->getPagesCount()->willReturn(2);

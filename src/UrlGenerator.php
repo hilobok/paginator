@@ -10,9 +10,9 @@ class UrlGenerator
      * Returns url for given page number.
      * If url contains placeholder, it will be replaced with given page number.
      * If placeholder absent, page number will be added to the end of the string.
-     * @param  integer $pageNumber  Page number.
-     * @param  string  $url         Url template.
-     * @return string               Url for given page number.
+     * @param  integer $pageNumber Page number.
+     * @param  string  $url        Url template.
+     * @return string  Url for given page number.
      */
     public function generate($pageNumber, $url)
     {

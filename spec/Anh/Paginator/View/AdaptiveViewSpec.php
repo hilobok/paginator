@@ -3,17 +3,16 @@
 namespace spec\Anh\Paginator\View;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Anh\Paginator\PageInterface;
 
 class AdaptiveViewSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Anh\Paginator\View\AdaptiveView');
     }
 
-    function it_will_render_simple_view_on_pages_count_less_than_triple_length(PageInterface $page)
+    public function it_will_render_simple_view_on_pages_count_less_than_triple_length(PageInterface $page)
     {
         $page->getPageNumber()->willReturn(1);
         $page->getPagesCount()->willReturn(2);
@@ -28,7 +27,7 @@ class AdaptiveViewSpec extends ObjectBehavior
         );
     }
 
-    function it_will_render_head(PageInterface $page)
+    public function it_will_render_head(PageInterface $page)
     {
         $page->getPageNumber()->willReturn(4);
         $page->getPagesCount()->willReturn(20);
@@ -54,7 +53,7 @@ class AdaptiveViewSpec extends ObjectBehavior
         );
     }
 
-    function it_will_render_tail(PageInterface $page)
+    public function it_will_render_tail(PageInterface $page)
     {
         $page->getPageNumber()->willReturn(17);
         $page->getPagesCount()->willReturn(20);
@@ -80,7 +79,7 @@ class AdaptiveViewSpec extends ObjectBehavior
         );
     }
 
-    function it_will_render_body(PageInterface $page)
+    public function it_will_render_body(PageInterface $page)
     {
         $page->getPageNumber()->willReturn(8);
         $page->getPagesCount()->willReturn(20);
