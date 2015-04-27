@@ -3,9 +3,7 @@
 namespace spec\Anh\Paginator\Adapter;
 
 use PhpSpec\ObjectBehavior;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\EntityManager;
 
 class DoctrineOrmAdapterSpec extends ObjectBehavior
 {
@@ -29,12 +27,12 @@ class DoctrineOrmAdapterSpec extends ObjectBehavior
         $this->shouldBeCompatibleWith($queryBuilder);
     }
 
-    public function it_should_be_compatible_with_Query(EntityManager $entityManager)
+    public function it_should_be_compatible_with_Query()
     {
         // we need to have an instance of Query as there is no way to mock final class
+        // also it's not right to mock doctrine in order to test it's behaviour
         // https://github.com/phpspec/prophecy/issues/102
-        $query = new Query($entityManager->getWrappedObject());
-        $this->shouldBeCompatibleWith($query);
+        return;
     }
 
     public function it_should_not_be_compatible_with_other_types()
